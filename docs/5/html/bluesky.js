@@ -140,7 +140,9 @@ class BlueSky {
             userAccessToken = data.access_token;
         });
         */
-        const res = await fetch(userTokenEndPoint, fetchOptions);
+
+//        const res = await fetch(userTokenEndPoint, fetchOptions);
+        const res = await fetch(localStorage.getItem('tokenEndpoint'), fetchOptions);
         const json = res.json();
         return ({authServerResponse:json, accessToken:json.access_token});
     }
