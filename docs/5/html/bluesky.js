@@ -6,10 +6,9 @@ class BlueSky {
     receivedParams() {// リダイレクトされたURLに付与された各種コード値を取得する
         const thisURL = new URL(window.location);
         return new URLSearchParams(thisURL.search);
-        ui.iss.value = parsedSearch.get('iss');
-        ui.state.value = parsedSearch.get('state');
-        ui.code.value = parsedSearch.get('code');
-
+//        ui.iss.value = parsedSearch.get('iss');
+//        ui.state.value = parsedSearch.get('state');
+//        ui.code.value = parsedSearch.get('code');
     }
     async dpop(code) {// 所持証明
 //        localStorage.setItem('codeVerifier', codeVerifier);
@@ -144,7 +143,7 @@ class BlueSky {
         return ({authServerResponse:json, accessToken:json.access_token});
     }
 
-    hashedAccessToken(userAccessToken) {
+    async hashedAccessToken(userAccessToken) {
         // ------------------------------------------
         //   Javascript
         // ------------------------------------------
