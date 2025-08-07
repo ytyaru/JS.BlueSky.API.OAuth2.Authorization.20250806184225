@@ -102,7 +102,9 @@ class BlueSky {
             name: "ECDSA",
             hash: { name: "SHA-256" },
         };
-        let signatureAsBase64 = await crypto.subtle.sign(signOptions, key.privateKey, dpop_proof_payload)
+        console.log(signOptions, key.privateKey, dpop_proof_payload);
+        //let signatureAsBase64 = await crypto.subtle.sign(signOptions, key.privateKey, dpop_proof_payload)
+        let signatureAsBase64 = await crypto.subtle.sign(signOptions, key.privateKey, messageAsUint8Array);
         .then(function(signature) {
             return Base64.ToBase64Url(new Uint8Array(signature));
         });
