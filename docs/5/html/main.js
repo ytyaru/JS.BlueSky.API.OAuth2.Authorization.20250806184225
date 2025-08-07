@@ -5,7 +5,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
     // リダイレクトされたURLに付与されたパラメータを取得する
     const bsky = new BlueSky();
     const params = bsky.receivedParams();
-    'iss state code'.map(n=>ui[n].value = params.get(n));
+    'iss state code'.split(' ').map(n=>ui[n].value = params.get(n));
     console.log(ui.iss.value, ui.state.value, ui.code.value);
     ui.code.focus();
 
