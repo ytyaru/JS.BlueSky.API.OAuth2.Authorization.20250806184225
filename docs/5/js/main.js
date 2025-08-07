@@ -1,6 +1,12 @@
 window.addEventListener('DOMContentLoaded', async(event) => {
     const bsky = new BlueSky();
     const ui = Object.fromEntries('handle getDID did serviceEndpoint authServerURL authorizationEndpoint tokenEndpoint parEndpoint'.split(' ').map(n=>[n, Dom.q(`[name="${n}"]`)]));
+    async function getMeta() {
+//        const res = await fetch(`json/client-metadata-localhost.json`); // CORS error
+//        const res = await fetch(`json/client-metadata-localhost8000.json`); // 後のbsky.requestPAR()でerror response
+        const res = await fetch(`json/client-metadata-githubpages.json`); // ?
+        return await res.json();
+    }
     ui.getDID.listen('click', async(e)=>{
         const did = await bsky.getDID(ui.handle.value);
         ui.did.value = did;
@@ -16,6 +22,12 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         ui.tokenEndpoint.value = bsky.getTokenEndPoint(authServerDiscovery);
         ui.parEndpoint.value = bsky.getPAREndPoint(authServerDiscovery);
         ui.parEndpoint.focus();
+        const meta = await getMeta();
+        console.log(meta.client_id, meta.redirect_uris[0], meta);
+        const {dpopNonce, PAR, authServerRequestURI} = await bsky.requestPAR(ui.handle.value, ui.parEndpoint.value, meta.client_id, meta.redirect_uris[0]);
+        console.log(dpopNonce, authServerRequestURI, PAR);
+        ui.dpopNonce.value = dpopNonce;
+        ui.authServerRequestURI.value = authServerRequestURI;
         ui.getDID.disabled = true;
     });
     ui.handle.listen('input', async(e)=>{

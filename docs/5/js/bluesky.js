@@ -26,7 +26,7 @@ class BlueSky {
     getTokenEndPoint(authServerDiscovery) {return authServerDiscovery.token_endpoint}
     getPAREndPoint(authServerDiscovery) {return authServerDiscovery.pushed_authorization_request_endpoint}
 
-    requestPAR() {
+    async requestPAR(USER_HANDLE, userPAREndPoint, APP_CLIENT_ID, APP_CALLBACK_URL) {
         // The state
         // ------------------------------------------
         let stateArray = new Uint32Array(28);
@@ -41,8 +41,10 @@ class BlueSky {
 
         // The code verifier challenge
         // ------------------------------------------
-        let hashedCodeVerifier = await sha256(codeVerifier);
-        let codeChallenge = base64urlencode(hashedCodeVerifier);
+        //let hashedCodeVerifier = await sha256(codeVerifier);
+        let hashedCodeVerifier = await this.#sha256(codeVerifier);
+        let codeChallenge = this.#base64urlencode(hashedCodeVerifier);
+        //let codeChallenge = base64urlencode(hashedCodeVerifier);
 
         // Build up the URL.
         // Just, to make it simple! I know there are better ways to do this, BUT...
@@ -66,6 +68,14 @@ class BlueSky {
             },
             body: body
         }
+
+        console.log(url, fetchOptions);
+        const res = await fetch(url, fetchOptions);
+        const dpopNonce = res.headers.get('dpop-nonce');
+        const json = await res.json();
+        const authServerRequestURI = json.request_uri;
+        return ({dpopNonce:dpopNonce, PAR:json, authServerRequestURI:authServerRequestURI});
+        /*
         fetch( url, fetchOptions ).then( response => {
             // Process the HTTP Response
             dpopNonce = response.headers.get( "dpop-nonce" );
@@ -74,6 +84,20 @@ class BlueSky {
             // Process the HTTP Response Body
             userAuthServerRequestURI = data.request_uri;
         });
+        */
+    }
+    async #sha256(str, algorizm='SHA-256') {//https://developer.mozilla.org/ja/docs/Web/API/SubtleCrypto/digest
+        const encoder = new TextEncoder();
+        const data = encoder.encode(str);
+        return window.crypto.subtle.digest(algorizm, data); // SHA-1/SHA-256/SHA-384/SHA-512
+    }
+    #base64urlencode(str) {
+        // Convert the ArrayBuffer to string using Uint8 array to conver to what btoa accepts.
+        // btoa accepts chars only within ascii 0-255 and base64 encodes them.
+        // Then convert the base64 encoded to base64url encoded
+        //   (replace + with -, replace / with _, trim trailing =)
+        return btoa(String.fromCharCode.apply(null, new Uint8Array(str)))
+            .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
     }
 }
 window.BlueSky = BlueSky;
