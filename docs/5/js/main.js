@@ -36,7 +36,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         localStorage.setItem('handle', ui.handle.value);
         localStorage.setItem('codeVerifier', codeVerifier);
         localStorage.setItem('dpopNonce', dpopNonce);
-        localStorage.setItem('tokenEndpoint', tokenEndpoint);
+        localStorage.setItem('tokenEndpoint', ui.tokenEndpoint.value);
         localStorage.setItem('clientID', meta.client_id);
         localStorage.setItem('callbackURL', meta.redirect_uris[0]);
         // request authrization endpoint
