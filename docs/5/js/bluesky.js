@@ -74,7 +74,7 @@ class BlueSky {
         const dpopNonce = res.headers.get('dpop-nonce');
         const json = await res.json();
         const authServerRequestURI = json.request_uri;
-        return ({dpopNonce:dpopNonce, PAR:json, authServerRequestURI:authServerRequestURI});
+        return ({codeVerifier:codeVerifier, dpopNonce:dpopNonce, PAR:json, authServerRequestURI:authServerRequestURI});
         /*
         fetch( url, fetchOptions ).then( response => {
             // Process the HTTP Response
@@ -86,6 +86,7 @@ class BlueSky {
         });
         */
     }
+    makeAuthorizationEndPointURL(userAuthorizationEndPoint, APP_CLIENT_ID, userAuthServerRequestURI) {return `${userAuthorizationEndPoint}?client_id=${encodeURIComponent( APP_CLIENT_ID )}&request_uri=${encodeURIComponent( userAuthServerRequestURI )}`}
     async #sha256(str, algorizm='SHA-256') {//https://developer.mozilla.org/ja/docs/Web/API/SubtleCrypto/digest
         const encoder = new TextEncoder();
         const data = encoder.encode(str);
