@@ -104,7 +104,7 @@ class BlueSky {
         };
         console.log(signOptions, key.privateKey, dpop_proof_payload);
         //let signatureAsBase64 = await crypto.subtle.sign(signOptions, key.privateKey, dpop_proof_payload)
-        let signatureAsBase64 = await crypto.subtle.sign(signOptions, key.privateKey, messageAsUint8Array);
+        let signatureAsBase64 = await crypto.subtle.sign(signOptions, key.privateKey, messageAsUint8Array)
         .then(function(signature) {
             return Base64.ToBase64Url(new Uint8Array(signature));
         });
