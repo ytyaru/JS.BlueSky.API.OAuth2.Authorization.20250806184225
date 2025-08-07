@@ -143,7 +143,7 @@ class BlueSky {
 
 //        const res = await fetch(userTokenEndPoint, fetchOptions);
         const res = await fetch(localStorage.getItem('tokenEndpoint'), fetchOptions);
-        const json = res.json();
+        const json = await res.json();
         return ({authServerResponse:json, accessToken:json.access_token});
     }
 
