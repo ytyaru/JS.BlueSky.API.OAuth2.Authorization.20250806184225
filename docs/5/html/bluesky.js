@@ -203,7 +203,7 @@ class BlueSky {
     }
     async post(dpopProof, userAccessToken, handle, message) {
         try {
-            const headers: {
+            const headers = {
 //                'Content-Type': [whichever],
                 'Accept': 'application/json',
 
@@ -216,7 +216,7 @@ class BlueSky {
                 // in a proper header.
                 // ------------------------------------------
                 'DPoP': dpopProof
-            }
+            };
             const fetchOptions = {
                 method: 'POST',     // Or "GET", or...
                 headers: headers,
@@ -230,7 +230,8 @@ class BlueSky {
                         createdAt: new Date().toISOString()
                     }
                 })
-            }
+            };
+            /*
             fetch( url, fetchOptions ).then( response => {
                 // Process the HTTP Response
 
@@ -242,6 +243,7 @@ class BlueSky {
                 // Process the HTTP Response Body
                 // Whatever we expect.
             });
+            */
             const url = 'https://bsky.social/xrpc/com.atproto.repo.createRecord';
             const res = await fetch(url, fetchOptions);
 //            dpopNonce = res.headers.get('dpop-nonce');
