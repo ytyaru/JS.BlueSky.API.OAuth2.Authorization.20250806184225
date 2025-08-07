@@ -27,10 +27,20 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         ui.parEndpoint.focus();
         const meta = await getMeta();
         console.log(meta.client_id, meta.redirect_uris[0], meta);
-        const {dpopNonce, PAR, authServerRequestURI} = await bsky.requestPAR(ui.handle.value, ui.parEndpoint.value, meta.client_id, meta.redirect_uris[0]);
+        const {codeVerifier, dpopNonce, PAR, authServerRequestURI} = await bsky.requestPAR(ui.handle.value, ui.parEndpoint.value, meta.client_id, meta.redirect_uris[0]);
         console.log(dpopNonce, authServerRequestURI, PAR);
         ui.dpopNonce.value = dpopNonce;
         ui.authServerRequestURI.value = authServerRequestURI;
+
+        // redirect後に使用するデータを保存しておく(logined.htmlで参照する)
+        localStorage.setItem('handle', ui.handle.value);
+        localStorage.setItem('codeVerifier', codeVerifier);
+        localStorage.setItem('dpopNonce', dpopNonce);
+        localStorage.setItem('tokenEndpoint', tokenEndpoint);
+        localStorage.setItem('clientID', meta.client_id);
+        localStorage.setItem('callbackURL', meta.redirect_uris[0]);
+        // request authrization endpoint
+        window.location = bsky.makeAuthorizationEndPoint(ui.authorizationEndpoint.value, meta.client_id, authServerRequestURI);
         ui.getDID.disabled = true;
     });
     ui.handle.listen('input', async(e)=>{

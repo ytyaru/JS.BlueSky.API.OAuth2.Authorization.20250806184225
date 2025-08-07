@@ -11,7 +11,7 @@
     "code"
   ],
   "redirect_uris":[
-    "http://127.0.0.1:8000/5/index.html"
+    "http://127.0.0.1:8000/5/html/logined.html"
   ],
   "dpop_bound_access_tokens":true,
   "token_endpoint_auth_method":"none",
