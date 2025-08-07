@@ -1,5 +1,5 @@
 class Base64 {
-    static toBase64Url(input) {
+    static ToBase64Url(input) {
         const base64string = btoa(String.fromCharCode.apply(0, input));
         return base64string.replace(/=/g, "").replace(/\+/g, "-").replace(/\//g, "_");
     }
