@@ -12,7 +12,7 @@ class Base64 {
     static ToBase64UrlString(str){
         return str.replace(/-/g, "+").replace(/_/g, "/").replace(/\s/g, "")
     }
-    static utf8ToUint8Array(str) {return base64UrlToUint8Array(btoa(unescape(encodeURIComponent(str))));}
+    static utf8ToUint8Array(str) {return this.base64UrlToUint8Array(btoa(unescape(encodeURIComponent(str))));}
     // Base64-urlencodes the input string
     static base64urlencode(str) {
         // Convert the ArrayBuffer to string using Uint8 array to conver to what btoa accepts.
