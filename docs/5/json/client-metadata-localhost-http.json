@@ -1,5 +1,5 @@
 {
-  "client_id":"https://ytyaru.github.io/JS.BlueSky.API.OAuth2.Authorization.20250806184225/5/json/client-metadata-githubpages.json",
+  "client_id":"http://localhost/5/json/client-metadata.json",
   "application_type":"web",
   "grant_types":[
     "authorization_code",
@@ -11,7 +11,7 @@
     "code"
   ],
   "redirect_uris":[
-    "https://ytyaru.github.io/JS.BlueSky.API.OAuth2.Authorization.20250806184225/5/index.html"
+    "http://localhost/5/index.html"
   ],
   "dpop_bound_access_tokens":true,
   "token_endpoint_auth_method":"none",

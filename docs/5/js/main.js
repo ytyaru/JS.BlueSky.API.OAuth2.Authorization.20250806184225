@@ -1,9 +1,12 @@
 window.addEventListener('DOMContentLoaded', async(event) => {
     const bsky = new BlueSky();
-    const ui = Object.fromEntries('handle getDID did serviceEndpoint authServerURL authorizationEndpoint tokenEndpoint parEndpoint'.split(' ').map(n=>[n, Dom.q(`[name="${n}"]`)]));
+    const ui = Object.fromEntries('handle getDID did serviceEndpoint authServerURL authorizationEndpoint tokenEndpoint parEndpoint dpopNonce authServerRequestURI'.split(' ').map(n=>[n, Dom.q(`[name="${n}"]`)]));
     async function getMeta() {
 //        const res = await fetch(`json/client-metadata-localhost.json`); // CORS error
 //        const res = await fetch(`json/client-metadata-localhost8000.json`); // 後のbsky.requestPAR()でerror response
+//        const res = await fetch(`json/client-metadata-localhost-http.json`); // error response
+//        const res = await fetch(`json/client-metadata-localhost8000-http.json`); // ?
+//        const res = await fetch(`json/client-metadata-127-0-0-1-8000-http.json`); // error response (invalid_client_metadata)
         const res = await fetch(`json/client-metadata-githubpages.json`); // ?
         return await res.json();
     }
