@@ -40,7 +40,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         localStorage.setItem('clientID', meta.client_id);
         localStorage.setItem('callbackURL', meta.redirect_uris[0]);
         // request authrization endpoint
-        window.location = bsky.makeAuthorizationEndPoint(ui.authorizationEndpoint.value, meta.client_id, authServerRequestURI);
+        window.location = bsky.makeAuthorizationEndPointURL(ui.authorizationEndpoint.value, meta.client_id, authServerRequestURI);
         ui.getDID.disabled = true;
     });
     ui.handle.listen('input', async(e)=>{
