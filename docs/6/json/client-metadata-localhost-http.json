@@ -1,0 +1,20 @@
+{
+  "client_id":"http://localhost/5/json/client-metadata.json",
+  "application_type":"web",
+  "grant_types":[
+    "authorization_code",
+    "refresh_token"
+  ],
+  "scope":"atproto transition:generic transition:chat.bsky",
+  "response_types":[
+    "code id_token",
+    "code"
+  ],
+  "redirect_uris":[
+    "http://localhost/5/html/logined.html"
+  ],
+  "dpop_bound_access_tokens":true,
+  "token_endpoint_auth_method":"none",
+  "client_name":"Madrilenyer Example Browser App",
+  "client_uri":"http://localhost/5/"
+}
