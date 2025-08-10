@@ -32,6 +32,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         ui.dpopNonce.value = dpopNonce;
         ui.authServerRequestURI.value = authServerRequestURI;
 
+        /*
         // redirect後に使用するデータを保存しておく(logined.htmlで参照する)
         localStorage.setItem('handle', ui.handle.value);
         localStorage.setItem('codeVerifier', codeVerifier);
@@ -42,6 +43,7 @@ window.addEventListener('DOMContentLoaded', async(event) => {
         // request authrization endpoint
         window.location = bsky.makeAuthorizationEndPointURL(ui.authorizationEndpoint.value, meta.client_id, authServerRequestURI);
         ui.getDID.disabled = true;
+        */
     });
     ui.handle.listen('input', async(e)=>{
         ui.getDID.disabled = (0 === e.target.value.trim().length);
